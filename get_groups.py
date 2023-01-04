@@ -1,17 +1,15 @@
-import auth.creds
 import auth.authHeaders as authHeaders
-import auth.authHeaders_sch as authHeaders_sch
+#import auth.authHeaders_sch as authHeaders_sch
 import auth.authHeaders_prod as authHeaders_prod
-import auth.creds as creds
 
 import requests
 import json
 
 
-iam_url = authHeaders_sch.iam_url_sch
-tenant = authHeaders_sch.tenant_sch
-auth_headers = authHeaders_sch.auth_headers_sch
-file_path = "output/schroders/"
+iam_url = authHeaders_prod.iam_url_prod
+tenant = authHeaders_prod.tenant_prod
+auth_headers = authHeaders_prod.auth_headers_prod
+file_path = "output/production/"
 
 url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
 

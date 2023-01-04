@@ -86,7 +86,10 @@ def __getGroupsToJSON(reader):
 
     outjson = json.dumps(out)
 
-    f = open('all_groups.json','w')
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+
+    f = open(file_path + 'all_groups.json','w')
     f.write(outjson)
 
     data = json.loads(outjson)
@@ -100,7 +103,9 @@ def __getGroupsToJSON(reader):
     groupout = [{'name': item} for item in unique_groups]
     group_out = json.dumps(groupout)
 
-    f = open('groups.json', 'w')
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+    f = open(file_path + 'groups.json', 'w')
     f.write(group_out)
 
 #__getGroupsToJSON(reader)
