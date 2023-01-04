@@ -1,0 +1,9 @@
+README
+This repository contains python scripts to use CxONE APIs and read content from CSV files
+
+GOAL
+The goal of this project is to read CSV files and generate json files following CxONE API requirements.
+
+DEVELOPED
+Read CSV files
+....
