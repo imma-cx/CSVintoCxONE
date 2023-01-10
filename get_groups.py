@@ -4,6 +4,7 @@ import auth.authHeaders_prod as authHeaders_prod
 
 import requests
 import json
+import os
 
 
 iam_url = authHeaders_prod.iam_url_prod
@@ -19,6 +20,8 @@ response = requests.get(url, headers=auth_headers)
 def __get_groups_names(response):
     list_names = [{"name": item["name"]} for item in response.json()]
 
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
     with open(file_path + 'all_groups_names.json', 'w') as f:
         json.dump(list_names, f)
 
@@ -27,10 +30,12 @@ __get_groups_names(response)
 def __get_groups_ids(response):
     list_ids = [{"id": item["id"]} for item in response.json()]
 
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
     with open(file_path + 'all_groups_ids.json', 'w') as f:
         json.dump(list_ids, f)
 
-#__get_groups_ids(response)
+__get_groups_ids(response)
 
 
 def __get_group_id(name):
@@ -44,7 +49,7 @@ def __get_group_id(name):
         raise Exception("Não Encontrou")
     __get_group_id(name)
 
-file = 'all_groups_names.json'
+file = file_path + 'all_groups_names.json'
 
 def __get_groups_id_json(file):
     
@@ -57,11 +62,14 @@ def __get_groups_id_json(file):
 
             if group:
                   # group_json = json.dumps(group['id'])
-                    group_id = group['id']
+                  #  group_id = group['id']
+                    group_id = __get_group_id(group)
                     group_ids.append(group_id)
 
-    with open('group_ID.json', 'w') as f:
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+    with open(file_path + 'groups_IDs.json', 'w') as f:
         json.dump(group_ids, f)
 
-#__get_groups_id_json(file)
+__get_groups_id_json(file)
 

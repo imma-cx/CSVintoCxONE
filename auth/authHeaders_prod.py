@@ -1,6 +1,6 @@
 import requests
 
-from auth.creds import api_key_prod, tenant_prod, iam_url_prod, username, password, client_id, client_secret
+from auth.creds import api_key_prod, tenant_prod, iam_url_prod, username, password, client_id, client_secret, server_url_prod
 from urllib3 import disable_warnings
 from urllib3.exceptions import InsecureRequestWarning
 

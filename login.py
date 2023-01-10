@@ -1,7 +1,7 @@
 # define which environment to use
 import auth.creds
 import auth.authHeaders as authHeaders
-import auth.authHeaders_sch as authHeaders_sch
+#import auth.authHeaders_sch as authHeaders_sch
 import auth.authHeaders_prod as authHeaders_prod
 import auth.creds as creds
 import fromCSVtoJSON
@@ -37,7 +37,7 @@ def __login(environment):
         iam_url = creds.iam_url_prod
         file_path = "output/production/"
 
-__login()
+__login(environment)
 
 
 def __get_data_from_csv(customer):
