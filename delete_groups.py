@@ -1,7 +1,7 @@
 import requests
 import json
 
-from authHeaders import auth_headers, iam_url, tenant
+from auth.authHeaders import auth_headers, iam_url, tenant
 
 def __delete_group_set(groupid):
 

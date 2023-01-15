@@ -1,7 +1,7 @@
 import requests
 import json
 
-from authHeaders import auth_headers, ast_url
+from auth.authHeaders import auth_headers, ast_url
 
 relative_url = ast_url + "/api/projects"
 
