@@ -1,5 +1,8 @@
 # My INFO TXT
 info_data/
+auth/
+data/
+output/
 
 # VSCode
 .vscode/*
