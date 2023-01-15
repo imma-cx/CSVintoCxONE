@@ -39,7 +39,7 @@ relative_url = ast_url + "/api/projects"
 log_file = "project_move.log"
 logging.basicConfig(filename=log_file, level=logging.ERROR)
 
-def __move_project_from_group(src_prj_id, dst_group_id):
+def move_project_from_group(src_prj_id, dst_group_id):
 
     body = {
         "groups": [dst_group_id]
@@ -55,3 +55,5 @@ def __move_project_from_group(src_prj_id, dst_group_id):
     else:
         logging.error(f"Error updating project, status code: {response.status_code}")
         return {}
+
+

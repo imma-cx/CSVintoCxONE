@@ -42,7 +42,7 @@ class TestMoveProjectFromGroup(unittest.TestCase):
         self.mock_response.json.return_value = {"status": "success"}
         mock_put.return_value = self.mock_response
 
-        result = put_projects.__move_project_from_group(self.src_prj_id, self.dst_group_id)
+        result = put_projects.move_project_from_group(self.src_prj_id, self.dst_group_id)
         self.assertEqual(result, {"status": "success"})
 
     @mock.patch('requests.put')
@@ -50,7 +50,7 @@ class TestMoveProjectFromGroup(unittest.TestCase):
         self.mock_response.status_code = 400
         mock_put.return_value = self.mock_response
 
-        result = put_projects.__move_project_from_group(self.src_prj_id, self.dst_group_id)
+        result = put_projects.move_project_from_group(self.src_prj_id, self.dst_group_id)
         self.assertEqual(result, {})
 
 if __name__ == '__main__':
