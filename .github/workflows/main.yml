@@ -8,7 +8,7 @@ jobs:
   # You may pin to the exact commit or the version.
   # uses: Checkmarx/ast-github-action@0fcee7e03446692b38464ac6ec3a47bf1deb1c27
       - name: Checkmarx AST Github Action
-        uses: Checkmarx/ast-github-action@2.0.9
+        uses: Checkmarx/ast-github-action@2.0.13
         with:
           base_uri: https://deu.ast.checkmarx.net
           cx_tenant: emanuel_ribeiro_gst
