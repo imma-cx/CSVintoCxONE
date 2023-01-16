@@ -10,7 +10,7 @@ jobs:
       - name: Checkmarx AST Github Action
         uses: Checkmarx/ast-github-action@2.0.9
         with:
-          base_uri: https://deu.ast.checkmarx.net
+          base_uri: https://deu.iam.checkmarx.net
           cx_tenant: emanuel_ribeiro_gst
           cx_client_id: ${{ secrets.CLIENT_ID }}
           cx_client_secret: ${{ secrets.SECRET }}
