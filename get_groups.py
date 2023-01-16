@@ -2,6 +2,8 @@ import auth.authHeaders as authHeaders
 #import auth.authHeaders_sch as authHeaders_sch
 import auth.authHeaders_prod as authHeaders_prod
 
+from logging_config import configure_logger, log_path
+
 import requests
 import json
 import os
@@ -14,18 +16,26 @@ file_path = "output/production/"
 
 url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
 
-response = requests.get(url, headers=auth_headers)
+#response = requests.get(url, headers=auth_headers)
 #print(response.json())
 
-def __get_groups(response):
+def get_groups(response):
+    response = requests.get(url, headers=auth_headers)
     try:
+        if not os.path.exists(file_path):
+            os.makedirs(file_path)
+        with open(file_path + 'all_groups.json', 'w') as f:
+            json.dump(response.json(), f)
+        
         return response.json()
+
     except ValueError as e:
         print(f"Error parsing response JSON: {e}")
     return {}
 
+#get_groups(response)
 
-def __get_groups_names(response):
+def get_groups_names_file(response):
     list_names = [{"name": item["name"]} for item in response.json()]
 
     if not os.path.exists(file_path):
@@ -33,7 +43,7 @@ def __get_groups_names(response):
     with open(file_path + 'all_groups_names.json', 'w') as f:
         json.dump(list_names, f)
 
-#__get_groups_names(response)
+#get_groups_names(response)
 
 def __get_groups_ids(response):
     list_ids = [{"id": item["id"]} for item in response.json()]
@@ -58,6 +68,39 @@ def __get_groups_ids(response):
 #     __get_group_id(name)
 
 # file = file_path + 'all_groups_names.json'
+
+logger = configure_logger(log_path + 'get_group_id.log')
+#group_name = "bd57cc19-7146-43a8-9706-b7c3fa584eff"
+def get_group_id(group_name):
+    try:
+        response = requests.get(url, headers=auth_headers)
+        groups = response.json()
+        for group in groups:
+            if group["name"] == group_name:
+                #print(group["id"])
+                return group["id"]
+    except requests.exceptions.RequestException as e:
+        logger.exception(f"An error occurred: {e}")
+        raise e
+
+#get_group_id(group_name)
+
+logger = configure_logger(log_path + 'get_group_name.log')
+
+def get_group_name(group_id):
+    try:
+        response = requests.get(url, headers=auth_headers)
+        groups = response.json()
+        for group in groups:
+            if group["id"] == group_id:
+                group_name = group["name"]
+                group_name = group_name.replace('"', '')
+            return group["name"]
+    except requests.exceptions.RequestException as e:
+        logger.exception(f"An error occurred: {e}")
+        raise e
+
+#get_group_name(group_id)
 
 # def __get_groups_id_json(file):
     
