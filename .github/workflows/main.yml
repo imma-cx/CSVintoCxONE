@@ -16,8 +16,8 @@ jobs:
           cx_client_secret: ${{ secrets.SECRET }}
           #github_token: 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
           project_name: ${{ github.repository }}
-          additional_params: --file-filter !readme --report-format sarif --output-name results --base-auth-uri 'https://deu.iam.checkmarx.net' --debug
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: results.sarif
+          additional_params: "--base-auth-uri 'https://deu.iam.checkmarx.net'"
+      #- name: Upload SARIF file
+      #  uses: github/codeql-action/upload-sarif@v1
+      #  with:
+      #    sarif_file: results.sarif
