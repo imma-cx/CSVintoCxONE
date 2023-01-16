@@ -10,30 +10,13 @@ jobs:
       - name: Checkmarx AST Github Action
         uses: Checkmarx/ast-github-action@2.0.9
         with:
-          # Provide the AST portal URL
           base_uri: https://deu.ast.checkmarx.net
-          # Provide the Tenant for AST portal URL
           cx_tenant: emanuel_ribeiro_gst
-          # Client ID for AST portal authentication
           cx_client_id: ${{ secrets.CLIENT_ID }}
-          # Secret key for AST portal authentication
-          cx_client_secret: ${{ secrets.SECRET }},
-          # Select a Checkmarx Project Name
+          cx_client_secret: ${{ secrets.SECRET }}
           project_name: ${{ github.repository }}
-          # Branch name
-          # branch: # optional, default is ${{ github.head_ref || github.ref }}
-          # GitHub API Token
-          # github_token: # optional, default is ${{ github.token }}
-          # Additional parameters for AST scan
           additional_params: --file-filter !readme --report-format sarif --output-name results
-          # Repository name for PR decoration
-          #repo_name: # optional, default is ${{ github.event.repository.name }}
-          # Organization name to create the Pr comment
-          #namespace: # optional, default is ${{ github.repository_owner }}
-          # Pr Number of the pull request that needs the decoration
-          #pr_number: # optional, default is ${{ github.event.number }}
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
-          # Path to SARIF file relative to the root of the repository
           sarif_file: results.sarif
