@@ -14,6 +14,7 @@ jobs:
           cx_tenant: emanuel_ribeiro_gst
           cx_client_id: ${{ secrets.CLIENT_ID }}
           cx_client_secret: ${{ secrets.SECRET }}
+          additional_params: "--base-auth-uri 'https://deu.iam.checkmarx.net' --debug"
           #github_token: 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
           project_name: ${{ github.repository }}
           additional_params: --file-filter !readme --report-format sarif --output-name results
