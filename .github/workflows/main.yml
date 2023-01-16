@@ -12,8 +12,8 @@ jobs:
         with:
           base_uri: https://deu.iam.checkmarx.net
           cx_tenant: emanuel_ribeiro_gst
-          cx_client_id: ${{ secrets.CLIENT_ID }}
-          cx_client_secret: ${{ secrets.SECRET }}
+          cx_client_id: CLIENT_ID
+          cx_client_secret: RphZ2TBHdW03p4HVNDjtPK2KByqSvTka
           project_name: ${{ github.repository }}
           additional_params: --file-filter !readme --report-format sarif --output-name results
       - name: Upload SARIF file
