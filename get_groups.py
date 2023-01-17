@@ -88,14 +88,14 @@ def get_group_id(group_name):
 logger = configure_logger(log_path + 'get_group_name.log')
 
 def get_group_name(group_id):
+    group_id = group_id.replace('"', '')
     try:
         response = requests.get(url, headers=auth_headers)
         groups = response.json()
         for group in groups:
             if group["id"] == group_id:
-                group_name = group["name"]
-                group_name = group_name.replace('"', '')
-            return group["name"]
+                return group["name"]
+                
     except requests.exceptions.RequestException as e:
         logger.exception(f"An error occurred: {e}")
         raise e
