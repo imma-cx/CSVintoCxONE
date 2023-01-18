@@ -24,7 +24,7 @@ jobs:
       - name: Checkmarx scan
         uses: checkmarx/ast-github-action@main
         with:
-          base_uri: https://ast.checkmarx.net
+          base_uri: https://eu.ast.checkmarx.net
           cx_client_id: ${{ secrets.CLIENT_ID }}
           cx_client_secret: ${{ secrets.SECRET }}
           cx_tenant: cec_emea_test_emanuel_ribeiro # This should be replaced by users' tenant name
