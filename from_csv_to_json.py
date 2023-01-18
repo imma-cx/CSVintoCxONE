@@ -1,14 +1,14 @@
 import csv
 import json
-import login
+import authentication
 import os
 
 import get_groups
 
-customer = login.customer
-file_path = login.file_path_customer
+customer = authentication.customer
+file_path = authentication.file_path_customer
 
-file = login.csv_data_customer
+file = authentication.csv_data_customer
 
 f = open(file, 'r')
 

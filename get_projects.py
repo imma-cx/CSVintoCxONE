@@ -2,21 +2,21 @@ import requests
 import json
 import os
 
-#from auth.authHeaders import iam_url, tenant, auth_headers
-#from auth.authHeaders_sch import iam_url_sch, tenant_sch, auth_headers_sch, server_url_sch
-from auth.authHeaders_prod import iam_url_prod, tenant_prod, auth_headers_prod, server_url_prod
+from config import Config, account_name
 
 from logging_config import configure_logger, log_path
 
-server_url = server_url_prod
-tenant = tenant_prod
-auth_headers = auth_headers_prod
-iam_url = iam_url_prod
+account = Config.get_account(account_name)
+
+auth_headers = account.get('auth_headers')
+server_url = account.get('iam_url')
 file_path = "output/production/"
 
 url = server_url + "/api/projects?offset=0&limit=500"
 
 #response = requests.get(url, headers=auth_headers)
+
+logger = configure_logger(log_path + "get_projects.log")
 
 def get_projects(response):
     response = requests.get(url, headers=auth_headers)
@@ -34,21 +34,26 @@ def get_projects(response):
 
 #get_projects(response)
 
-logger = configure_logger(log_path + 'get_group_name.log')
+logger = configure_logger(log_path + 'get_project_name.log')
 
 def get_project_name(project_id):
-    url = server_url + "/" + project_id
+    url = server_url + "/api/projects/" + project_id
     try:
         response = requests.get(url, headers=auth_headers)
-        projects = response.json()
-        for project in projects:
-            if project["id"] == project_id:
-                return project["name"]
+        if response.status_code == 200:
+            projects = json.loads(json.dumps(response))
+            for project in projects:
+                if project["id"] == project_id:
+                    return project["name"]
+        else:
+            logger.error(f"Error updating project, status code: {response.status_code}")
+        return {}
+
     except requests.exceptions.RequestException as e:
         logger.exception(f"An error occurred: {e}")
         raise e
 
-#get_group_name(group_id)
+    get_project_name(project_id)
 
 def __get_projects_names(response):
     list_names = [{"name": project["name"]} for project in response.json()['projects']]
@@ -73,6 +78,7 @@ def __get_projects_ids(response):
 
 
 name = ''
+response = ""
 def __get_project_id(name):
 
     print(name)
@@ -108,4 +114,20 @@ def __get_groups_id_json(file):
         json.dump(group_ids, f)
 
 #__get_groups_id_json(file)
+
+
+
+# [09:02] Michael Kubiaczyk
+# as an admin user, GET {{Cx1_IAM}}/auth/admin/realms/{{Cx1_Tenant}}/clients?briefRepresentation=true
+
+# [09:03] Michael Kubiaczyk
+# response: 
+#     {
+#         "id": "bc5884f2-19b5-4783-a697-86ca44bab03e",
+#         "clientId": "mikek_jenkins_oauth",
+#         "surrogateAuthRequired": false,
+#         "enabled": true,
+#         "alwaysDisplayInConsole": false,
+#         "clientAuthenticatorType": "client-secret",
+#         "secret": "c9592102-7ac8-4eee-a80b-75e770919a1d",
 

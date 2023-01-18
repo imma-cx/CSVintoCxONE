@@ -4,10 +4,11 @@ import json
 import os
 import get_projects
 import get_groups
+from auth import authHeaders_prod
 
 #import auth.authHeaders as authHeaders
 #import auth.authHeaders_sch as authHeaders_sch
-import auth.authHeaders_prod as authHeaders_prod
+#import auth.authHeaders_prod as authHeaders_prod
 
 from logging_config import configure_logger, log_path
 from get_groups import get_groups, get_group_name
@@ -18,6 +19,16 @@ tenant = authHeaders_prod.tenant_prod
 auth_headers = authHeaders_prod.auth_headers_prod
 file_path = "output/production/"
 log_path = "logs/"
+
+response = auth.authHeaders
+body = ""
+
+projects_json = get_projects(response)
+groups_json = get_groups(response)
+
+relative_url = ast_url + "/api/projects"
+
+
 
 #body expected
 # {
@@ -39,10 +50,7 @@ log_path = "logs/"
 # Consumes
 # application/json
 
-relative_url = ast_url + "/api/projects"
 
-response = ""
-body = ""
 
 logger = configure_logger(log_path + 'change_project_group.log')
 
@@ -66,10 +74,6 @@ def change_project_group(project_id, parent_group_id):
         logging.error(f"Error updating project, status code: {response.status_code}")
         return {}
 
-
-
-projects_json = get_projects(response)
-groups_json = get_groups(response)
 
 logger = configure_logger(log_path + 'move_projects_to_parent_group_sch.log')
 
