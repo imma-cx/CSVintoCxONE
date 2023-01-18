@@ -16,7 +16,11 @@ jobs:
           project_name: "CSVintoCxONE"
           cx_tenant: "cec_emea_test_emanuel_ribeiro"
           base_uri: "https://eu.ast.checkmarx.net"
-          additional_params: "--debug"
           cx_client_id: ${{ secrets.CLIENT_ID }}
           cx_client_secret: ${{ secrets.SECRET }}
+          additional_params: --file-filter !readme --report-format sarif --output-name results
           #cx_apikey: ${{ secrets.APIKEY }}
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: results.sarif
