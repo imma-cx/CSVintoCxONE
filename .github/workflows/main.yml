@@ -1,4 +1,4 @@
-name: CxONE Scan
+name: CxONE Scan 
 on: 
   push:
     branches:
