@@ -2,6 +2,9 @@ import requests
 from config import Config
 from logging_config import configure_logger, log_path
 
+account_name = "production"
+use_api_key = "true"
+
 logger = configure_logger(log_path + 'authentication.log')
 
 
@@ -54,5 +57,6 @@ def get_token(account_name: str, use_api_key: bool):
         raise
 
 
+auth_headers["Authorization"] = get_token(account_name, use_api_key)
 
 

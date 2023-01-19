@@ -18,6 +18,7 @@ url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
 
 #response = requests.get(url, headers=auth_headers)
 #print(response.json())
+response=""
 
 def get_groups(response):
     response = requests.get(url, headers=auth_headers)
@@ -33,7 +34,7 @@ def get_groups(response):
         print(f"Error parsing response JSON: {e}")
     return {}
 
-#get_groups(response)
+get_groups(response)
 
 def get_groups_names_file(response):
     list_names = [{"name": item["name"]} for item in response.json()]

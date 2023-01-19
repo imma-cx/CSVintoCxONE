@@ -29,10 +29,10 @@ def __create_group_set(group_data):
     except requests.exceptions.RequestException as e:
         logger.exception(e)
 
-# with open("groups.json") as f:
-#     data = json.load(f)
-#     for group in data:
-#         __create_group_set(group)
+with open("temp/groups.json") as f:
+    data = json.load(f)
+    for group in data:
+        __create_group_set(group)
 
 def __create_sub_group_(sub_group_data, parent_group_id):
         if parent_group_id:

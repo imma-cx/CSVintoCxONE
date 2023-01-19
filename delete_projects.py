@@ -1,14 +1,14 @@
 import requests
 import json
 import get_projects
-
-from config import Config, account_name
+import authentication
+from config import Config
 
 from get_projects import get_projects, get_project_name
 
 from logging_config import configure_logger, log_path
 
-account = Config.get_account(account_name)
+account = Config.get_account_config(authentication.account_name)
 server_url = account.get('server_url')
 
 project_id = ""
@@ -23,7 +23,7 @@ def delete_project(project_id):
     if project_id != "":
         project_name = get_project_name(project_id)
         try:
-            response = requests.delete(url, headers=auth_headers)
+            response = requests.delete(url, headers=authentication.auth_headers)
             if response.status_code == 200:
                 logger.debug("Project with ID " + project_id + ", named" + project_name + " was deleted!")
             else:

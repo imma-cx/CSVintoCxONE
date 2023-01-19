@@ -2,11 +2,11 @@ import requests
 import json
 import os
 
-from config import Config, account_name
+from authentication import Config, account_name
 
 from logging_config import configure_logger, log_path
 
-account = Config.get_account(account_name)
+account = Config.get_account_config(account_name)
 
 auth_headers = account.get('auth_headers')
 server_url = account.get('iam_url')
