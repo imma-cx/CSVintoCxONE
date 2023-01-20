@@ -2,23 +2,17 @@ import requests
 import json
 import os
 
-from authentication import Config, account_name
-
+from authentication import Config, account_name, auth_headers
 from logging_config import configure_logger, log_path
 
 account = Config.get_account_config(account_name)
-
-auth_headers = account.get('auth_headers')
-server_url = account.get('iam_url')
-file_path = "output/production/"
-
-url = server_url + "/api/projects?offset=0&limit=500"
-
-#response = requests.get(url, headers=auth_headers)
+server_url = account.get('server_url')
+file_path = account.get('file_path')
 
 logger = configure_logger(log_path + "get_projects.log")
 
 def get_projects(response):
+    url = server_url + "/api/projects?offset=0&limit=500"
     response = requests.get(url, headers=auth_headers)
     try:
         if not os.path.exists(file_path):
@@ -53,7 +47,7 @@ def get_project_name(project_id):
         logger.exception(f"An error occurred: {e}")
         raise e
 
-    get_project_name(project_id)
+#get_project_name(project_id)
 
 def __get_projects_names(response):
     list_names = [{"name": project["name"]} for project in response.json()['projects']]

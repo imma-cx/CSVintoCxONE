@@ -1,24 +1,21 @@
-import auth.authHeaders as authHeaders
-#import auth.authHeaders_sch as authHeaders_sch
-import auth.authHeaders_prod as authHeaders_prod
-
-from logging_config import configure_logger, log_path
-
 import requests
 import json
 import os
 
+from authentication import Config, account_name, auth_headers
+from logging_config import configure_logger, log_path
 
-iam_url = authHeaders_prod.iam_url_prod
-tenant = authHeaders_prod.tenant_prod
-auth_headers = authHeaders_prod.auth_headers_prod
-file_path = "output/production/"
+account = Config.get_account_config(account_name)
+
+# change account in authentication.py
+iam_url = account.get('iam_url')
+tenant = account.get('tenant')
+file_path = account.get('file_path')
 
 url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
-
-#response = requests.get(url, headers=auth_headers)
-#print(response.json())
 response=""
+
+logger = configure_logger(log_path + 'get_groups_' + account_name + '.log')
 
 def get_groups(response):
     response = requests.get(url, headers=auth_headers)
@@ -27,7 +24,6 @@ def get_groups(response):
             os.makedirs(file_path)
         with open(file_path + 'all_groups.json', 'w') as f:
             json.dump(response.json(), f)
-        
         return response.json()
 
     except ValueError as e:
@@ -70,7 +66,7 @@ def __get_groups_ids(response):
 
 # file = file_path + 'all_groups_names.json'
 
-logger = configure_logger(log_path + 'get_group_id.log')
+logger = configure_logger(log_path + 'get_group_id_' + account_name + '.log')
 #group_name = "bd57cc19-7146-43a8-9706-b7c3fa584eff"
 def get_group_id(group_name):
     try:
@@ -86,7 +82,7 @@ def get_group_id(group_name):
 
 #get_group_id(group_name)
 
-logger = configure_logger(log_path + 'get_group_name.log')
+logger = configure_logger(log_path + 'get_group_name_' + account_name + '.log')
 
 def get_group_name(group_id):
     group_id = group_id.replace('"', '')

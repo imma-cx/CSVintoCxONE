@@ -2,15 +2,15 @@ import requests
 import json
 import csv
 
-
-#from auth.authHeaders import auth_headers, iam_url, tenant
-from auth.authHeaders_prod import auth_headers_prod, iam_url_prod, tenant_prod
+from authentication import Config, account_name, auth_headers
 from logging_config import configure_logger, log_path
 
-# temporary auth management
-auth_headers = auth_headers_prod
-iam_url = iam_url_prod
-tenant = tenant_prod
+account = Config.get_account_config(account_name)
+
+# change account in authentication.py
+iam_url = account.get('iam_url')
+tenant = account.get('tenant')
+file_path = account.get('file_path')
 
 #group_data = 
 logger = configure_logger(log_path + 'post_groups.log')
@@ -23,7 +23,9 @@ def __create_group_set(group_data):
     try:
         response = requests.post(url, json.dumps(group_data), headers=auth_headers)
         if response.status_code == 201:
-            logger.info(f"New Group with Name {json.dumps(group_data)} has been created!")
+            name = json.dumps(group_data)[name]
+            print(name)
+            logger.info(f"New Group with name " + name +  " has been created!")
         else:
             logger.error(f'Error: {response.status_code}')
     except requests.exceptions.RequestException as e:
@@ -75,9 +77,7 @@ def create_groups_and_subgroups(csv_file):
             
         groups_json = json.dumps(list(groups.values()))
         subgroups_json = json.dumps(list(subgroups.values()))
-        print(groups_json)
-        print(subgroups_json)
-        
+
     except Exception as e:
         logger.exception(f"An error occurred: {e}")
         raise e
