@@ -48,4 +48,4 @@ def delete_all_projects(projects_json):
         logger.exception(f"An error occurred: {e}")
         raise e
 
-#delete_all_projects(projects_json)
+delete_all_projects(projects_json)

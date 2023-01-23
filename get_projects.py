@@ -28,16 +28,19 @@ def get_projects(response):
 
 #get_projects(response)
 
-logger = configure_logger(log_path + 'get_project_name.log')
+logger = configure_logger(log_path + 'get_project_name_' + account_name + '.log')
+
+project_id = '236246ca-1c02-4960-b0bf-9cb1bbce75d0'
 
 def get_project_name(project_id):
     url = server_url + "/api/projects/" + project_id
     try:
         response = requests.get(url, headers=auth_headers)
         if response.status_code == 200:
-            projects = json.loads(json.dumps(response))
+            projects = response.json()
             for project in projects:
-                if project["id"] == project_id:
+                if int(project["id"]) == project_id:
+                    logger.info("Project name is " + project["name"])
                     return project["name"]
         else:
             logger.error(f"Error updating project, status code: {response.status_code}")
@@ -47,7 +50,7 @@ def get_project_name(project_id):
         logger.exception(f"An error occurred: {e}")
         raise e
 
-#get_project_name(project_id)
+get_project_name(project_id)
 
 def __get_projects_names(response):
     list_names = [{"name": project["name"]} for project in response.json()['projects']]
