@@ -5,10 +5,16 @@ import os
 
 import get_groups
 
-customer = authentication.customer
-file_path = authentication.file_path_customer
+from authentication import Config, account_name, auth_headers
+from logging_config import configure_logger, log_path
 
-file = authentication.csv_data_customer
+account = Config.get_account_config(account_name)
+server_url = account.get('server_url')
+file_path = account.get('file_path')
+tenant = account.get('tenant')
+
+
+file = "data/adidas/adidas_wout_filters.csv"
 
 f = open(file, 'r')
 
@@ -47,7 +53,7 @@ def __readCSVtoJSON(reader):
         item['groups'] = {}
         groups = row['Groups(TeamList)'].split(',')
         for group in groups:
-            item['groups'] = [get_groups.__get_group_id(group) for group in groups]
+            item['groups'] = [get_groups.get_group_id(group) for group in groups]
 
         item['origin'] = 'API'
         item['tags'] = {}
@@ -70,7 +76,7 @@ def __readCSVtoJSON(reader):
     # Save the JSON
     if not os.path.exists(file_path):
         os.makedirs(file_path)
-    f = open(file_path + 'fromCSV_withGroupID_' + customer + '.json', 'w')
+    f = open(file_path + '/fromCSV_withGroupID_' + account_name + '.json', 'w')
     f.write(outjson)
 
 __readCSVtoJSON(reader)
@@ -89,7 +95,7 @@ def __getGroupsToJSON(reader):
     if not os.path.exists(file_path):
         os.makedirs(file_path)
 
-    f = open(file_path + 'all_groups.json','w')
+    f = open(file_path + '/all_groups.json','w')
     f.write(outjson)
 
     data = json.loads(outjson)
@@ -105,7 +111,7 @@ def __getGroupsToJSON(reader):
 
     if not os.path.exists(file_path):
         os.makedirs(file_path)
-    f = open(file_path + 'groups.json', 'w')
+    f = open(file_path + '/groups.json', 'w')
     f.write(group_out)
 
 #__getGroupsToJSON(reader)

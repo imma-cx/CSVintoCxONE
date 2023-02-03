@@ -6,27 +6,26 @@ import get_projects
 import get_groups
 from auth import authHeaders_prod
 
-#import auth.authHeaders as authHeaders
-#import auth.authHeaders_sch as authHeaders_sch
-#import auth.authHeaders_prod as authHeaders_prod
-
+from authentication import Config, account_name, auth_headers
 from logging_config import configure_logger, log_path
+
+account = Config.get_account_config(account_name)
+server_url = account.get('server_url')
+file_path = account.get('file_path')
+tenant = account.get('tenant')
+
 from get_groups import get_groups, get_group_name
 from get_projects import get_projects, get_project_name
 
-ast_url = authHeaders_prod.server_url_prod
-tenant = authHeaders_prod.tenant_prod
-auth_headers = authHeaders_prod.auth_headers_prod
-file_path = "output/production/"
 log_path = "logs/"
 
-response = auth.authHeaders
+response = ""
 body = ""
 
 projects_json = get_projects(response)
 groups_json = get_groups(response)
 
-relative_url = ast_url + "/api/projects"
+relative_url = server_url + "/api/projects"
 
 
 
@@ -53,7 +52,6 @@ relative_url = ast_url + "/api/projects"
 
 
 logger = configure_logger(log_path + 'change_project_group.log')
-
 
 def change_project_group(project_id, parent_group_id):
 

@@ -1,9 +1,14 @@
 import requests
 import json
 
-from auth.authHeaders import auth_headers, ast_url
+from authentication import Config, account_name, auth_headers
+from logging_config import configure_logger, log_path
 
-relative_url = ast_url + "/api/projects"
+account = Config.get_account_config(account_name)
+server_url = account.get('server_url')
+file_path = account.get('file_path')
+
+relative_url = server_url + "/api/projects"
 
 #body expected
 # {
@@ -20,7 +25,9 @@ relative_url = ast_url + "/api/projects"
 #   }
 # }
 
-def __create_project_set(project):
+logger = configure_logger(log_path + "create_project_set.log")
+
+def create_project_set(project):
 
     url=relative_url
     try:
@@ -33,8 +40,8 @@ def __create_project_set(project):
     except requests.exceptions.RequestException as e:
         print(e)
 
-with open("fromCSV_withGroupID.json", 'r') as f:
+with open(file_path + '/fromCSV_withGroupID_' + account_name + '.json', 'r') as f:
     data = json.load(f)
     for project in data:
-        __create_project_set(project)
+        create_project_set(project)
 

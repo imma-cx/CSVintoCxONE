@@ -17,15 +17,15 @@ logger = configure_logger(log_path + 'post_groups.log')
 
 relative_url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
 
-def __create_group_set(group_data):
+def create_group_set(group_data):
 
     url=relative_url
     try:
         response = requests.post(url, json.dumps(group_data), headers=auth_headers)
         if response.status_code == 201:
-            name = json.dumps(group_data)[name]
-            print(name)
-            logger.info(f"New Group with name " + name +  " has been created!")
+            #name = json.dumps(group_data)[name]
+            #print(name)
+            logger.info(f"New Group with name has been created!")
         else:
             logger.error(f'Error: {response.status_code}')
     except requests.exceptions.RequestException as e:
@@ -34,7 +34,7 @@ def __create_group_set(group_data):
 with open("temp/groups.json") as f:
     data = json.load(f)
     for group in data:
-        __create_group_set(group)
+        create_group_set(group)
 
 def __create_sub_group_(sub_group_data, parent_group_id):
         if parent_group_id:
@@ -86,6 +86,6 @@ def create_groups_and_subgroups(csv_file):
     return groups_json, subgroups_json
     
     
-create_groups_and_subgroups(csv_file1)
+#create_groups_and_subgroups(csv_file1)
 
 

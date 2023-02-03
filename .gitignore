@@ -3,6 +3,7 @@ info_data/
 auth/
 data/
 output/
+tools/
 
 # VSCode
 .vscode/*

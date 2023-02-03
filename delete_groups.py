@@ -12,7 +12,7 @@ iam_url = account.get('iam_url')
 tenant = account.get('tenant')
 file_path = account.get('file_path')
 
-#deletes all the projects in the csv file by id
+#deletes all the groups in the csv file by id
 logger = configure_logger(log_path + 'delete_group_set_' + account_name + '.log')
 
 def delete_group_set(groupid):

@@ -13,16 +13,15 @@ tenant = account.get('tenant')
 file_path = account.get('file_path')
 
 url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
-response=""
+response = requests.get(url, headers=auth_headers)
 
 logger = configure_logger(log_path + 'get_groups_' + account_name + '.log')
 
 def get_groups(response):
-    response = requests.get(url, headers=auth_headers)
     try:
         if not os.path.exists(file_path):
             os.makedirs(file_path)
-        with open(file_path + 'all_groups.json', 'w') as f:
+        with open(file_path + '/all_groups.json', 'w') as f:
             json.dump(response.json(), f)
         return response.json()
 
@@ -37,20 +36,20 @@ def get_groups_names_file(response):
 
     if not os.path.exists(file_path):
         os.makedirs(file_path)
-    with open(file_path + 'all_groups_names.json', 'w') as f:
+    with open(file_path + '/all_groups_names.json', 'w') as f:
         json.dump(list_names, f)
 
-#get_groups_names(response)
+get_groups_names_file(response)
 
-def __get_groups_ids(response):
+def get_groups_ids(response):
     list_ids = [{"id": item["id"]} for item in response.json()]
 
     if not os.path.exists(file_path):
         os.makedirs(file_path)
-    with open(file_path + 'all_groups_ids.json', 'w') as f:
+    with open(file_path + '/all_groups_ids.json', 'w') as f:
         json.dump(list_ids, f)
 
-#__get_groups_ids(response)
+get_groups_ids(response)
 
 # NOT FINISHED - get group ID from name, into csv
 #def __get_group_id(name):
@@ -70,7 +69,6 @@ logger = configure_logger(log_path + 'get_group_id_' + account_name + '.log')
 #group_name = "bd57cc19-7146-43a8-9706-b7c3fa584eff"
 def get_group_id(group_name):
     try:
-        response = requests.get(url, headers=auth_headers)
         groups = response.json()
         for group in groups:
             if group["name"] == group_name:
@@ -87,7 +85,6 @@ logger = configure_logger(log_path + 'get_group_name_' + account_name + '.log')
 def get_group_name(group_id):
     group_id = group_id.replace('"', '')
     try:
-        response = requests.get(url, headers=auth_headers)
         groups = response.json()
         for group in groups:
             if group["id"] == group_id:
