@@ -1,6 +1,6 @@
 import unittest
 import mock
-import put_projects
+import put_projects_wrong
 import auth.authHeaders_prod as authHeaders_prod
 
 # Here we have created a test class TestMoveProjectFromGroup which is a subclass of unittest.TestCase. 

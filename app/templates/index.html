@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Example</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+
+    <h1>Report Generator</h1>
+    <form action="/report" method="GET" id="initialForm">
+        <div class="input-container">
+            <label for="scan_number">Number of Scans:</label><br>
+            <input type="text" id="scan_number" name="scan_number"><br><br>
+            <label for="dropdown-select">Select an Option:</label>
+            <select id="dropdown-select" name="dropdown-select">
+                <option value="scans">Scans</option>
+                <option value="projects">Projects</option>
+                <option value="failed">Failed</option>
+            </select>
+            <button onclick="submitForm()">Generate Graph</button>
+        </div>
+    </form>
+
+
+
+
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

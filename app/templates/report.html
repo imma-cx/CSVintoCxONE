@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Environment Health Check</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Environment Health Check</h1>
+
+    <h2>Failed Scans</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Scan ID</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Project A</td>
+                <td>123456</td>
+                <td>Connection Timeout</td>
+            </tr>
+            <tr>
+                <td>Project B</td>
+                <td>789012</td>
+                <td>Server Error</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+
+    <h2>Scan Metrics by Project</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Number of Scans</th>
+                <th>Average Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Project A</td>
+                <td>5</td>
+                <td>2 hours 30 minutes</td>
+            </tr>
+            <tr>
+                <td>Project B</td>
+                <td>3</td>
+                <td>scan_data</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+
+    <!-- Add more tables and metrics as needed -->
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

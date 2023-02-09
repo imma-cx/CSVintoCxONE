@@ -4,6 +4,15 @@ auth/
 data/
 output/
 tools/
+logs/
+
+#customers
+*schroders*
+delete*
+*adidas*
+*schroders_post_groups*
+*sch*
+
 
 # VSCode
 .vscode/*

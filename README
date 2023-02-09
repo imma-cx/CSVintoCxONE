@@ -1,9 +1,34 @@
-README
-This repository contains python scripts to use CxONE APIs and read content from CSV files
+# from CSv to CxONE
 
-GOAL
-The goal of this project is to read CSV files and generate json files following CxONE API requirements.
+This repository is a Python app used to retrieve data from a CSV file, manipulate the data to generate a JSON body to be used with the CxONE API to inject Projects, Groups, users, tags...
+This also allows you to get data from the tenant, delete groups, projects
 
-DEVELOPED
-Read CSV files
-....
+## Usage
+
+To use this repository, you'll need to follow these steps:
+
+1. Clone the repository to your local machine.
+2. Install the necessary dependencies by running the following command:
+
+    ```
+    pip install -r requirements.txt
+    ```
+
+3. Run the `csv_to_json.py` file to retrieve data from the CSV file and generate the JSON body.
+4. Use the generated JSON body in the API of the product to inject Projects, Groups, Users, tags, etc.
+
+Please, reach me to further understand the authentication since those files were not uploaded to the repo.
+
+## Contributing
+
+Contributions to this repository are always welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them with a descriptive commit message.
+4. Push your changes to your forked repository.
+5. Create a pull request to merge your changes into the main repository.
+
+## License
+
+This repository is licensed under the [MIT License](https://opensource.org/licenses/MIT).

@@ -1,6 +1,6 @@
 import csv
 import json
-import authentication
+import authentication as authentication
 import os
 
 import get_groups
@@ -14,7 +14,7 @@ file_path = account.get('file_path')
 tenant = account.get('tenant')
 
 
-file = "data/adidas/adidas_wout_filters.csv"
+file = "data/data.csv"
 
 f = open(file, 'r')
 

@@ -13,28 +13,48 @@ tenant = account.get('tenant')
 file_path = account.get('file_path')
 
 #group_data = 
-logger = configure_logger(log_path + 'post_groups.log')
+logger = configure_logger(log_path + 'post_groups_' + account_name + '.log')
 
 relative_url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
 
-def create_group_set(group_data):
+# create multiple groups from groups.json file - $file_to_create_groups
+file_to_create_groups = "output/adidas/new_data/groups.json"
 
-    url=relative_url
+
+def create_group(group_name):
+    url = relative_url
     try:
-        response = requests.post(url, json.dumps(group_data), headers=auth_headers)
+        response = requests.post(url, json.dumps({"name": group_name}), headers=auth_headers)
         if response.status_code == 201:
-            #name = json.dumps(group_data)[name]
-            #print(name)
-            logger.info(f"New Group with name has been created!")
+            logger.info(f"New Group with name " + group_name + " has been created!")
+        elif response.status_code == 409:
+            logger.info(f"Group with name " + group_name + " already exists!")
         else:
             logger.error(f'Error: {response.status_code}')
     except requests.exceptions.RequestException as e:
         logger.exception(e)
 
-with open("temp/groups.json") as f:
-    data = json.load(f)
-    for group in data:
-        create_group_set(group)
+
+def create_group_set(group):
+    name = group["name"]
+    url=relative_url
+    try:
+        response = requests.post(url, json.dumps(group), headers=auth_headers)
+        if response.status_code == 201:
+            logger.info(f"New Group with name " + name + " has been created!")
+        elif response.status_code == 409:
+            logger.info(f"Group with name " + name +  " already exists!")
+        else:
+            logger.error(f'Error: {response.status_code}')
+    except requests.exceptions.RequestException as e:
+        logger.exception(e)
+
+    with open(file_to_create_groups) as f:
+        data = json.load(f)
+        for group in data:
+            create_group_set(group)
+
+# create_group_set(file_to_create_groups)
 
 def __create_sub_group_(sub_group_data, parent_group_id):
         if parent_group_id:
@@ -87,5 +107,3 @@ def create_groups_and_subgroups(csv_file):
     
     
 #create_groups_and_subgroups(csv_file1)
-
-
