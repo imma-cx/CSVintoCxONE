@@ -5,6 +5,10 @@ data/
 output/
 tools/
 
+#customers
+*schroders*
+*adidas*
+
 # VSCode
 .vscode/*
 !.vscode/settings.json
