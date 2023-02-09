@@ -113,5 +113,6 @@ def __getGroupsToJSON(reader):
         os.makedirs(file_path)
     f = open(file_path + '/groups.json', 'w')
     f.write(group_out)
+    f.close
 
 #__getGroupsToJSON(reader)
