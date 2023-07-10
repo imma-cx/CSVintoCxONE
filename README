@@ -1,4 +1,6 @@
-# from CSv to CxONE
+##
+
+# from CSV to CxONE
 
 This repository is a Python app used to retrieve data from a CSV file, manipulate the data to generate a JSON body to be used with the CxONE API to inject Projects, Groups, users, tags...
 This also allows you to get data from the tenant, delete groups, projects

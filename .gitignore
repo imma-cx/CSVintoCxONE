@@ -14,6 +14,10 @@ delete*
 *sch*
 
 
+#customers
+*schroders*
+*adidas*
+
 # VSCode
 .vscode/*
 !.vscode/settings.json
