@@ -1,9 +1,8 @@
 import requests
 import json
-import get_projects
 
 from config import Config
-from authentication import account_name, auth_headers, auth_headers
+from authentication import account_name, auth_headers
 from get_projects import get_projects, get_project_name, get_project_id
 from logging_config import configure_logger, log_path
 
@@ -11,6 +10,7 @@ account = Config.get_account_config(account_name)
 server_url = account.get('server_url')
 
 logger = configure_logger(log_path + 'delete_project_' + account_name + '.log')
+
 
 def delete_project(project_id):
     url = server_url + "/api/projects/" + project_id
@@ -61,6 +61,7 @@ def delete_project_by_name(project_name):
 projects_json = get_projects()
 logger = configure_logger(log_path + 'delete_all_project_' + account_name + '.log')
 
+
 def delete_all_projects(projects_json):
     try:
         projects = json.loads(json.dumps(projects_json))
@@ -72,4 +73,4 @@ def delete_all_projects(projects_json):
         logger.exception(f"An error occurred: {e}")
         raise e
 
-# delete_all_projects(projects_json)
+delete_all_projects(projects_json)

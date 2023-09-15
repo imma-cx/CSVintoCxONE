@@ -30,7 +30,7 @@ logger = configure_logger(log_path + "create_project_set_adidas.log")
 # line below is the default path for the project
 #file_path = file_path + '/fromCSV_withGroupID_' + account_name + '.json', 'r'
 
-file_path = 'output/adidas/new_data/fromCSV_withGroupID_canary_latest_canary.json'
+file_path = 'output/caixabank/fromCSV_withGroupID_production.json'
 def create_project_set(project):
 
     url=relative_url

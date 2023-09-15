@@ -44,6 +44,7 @@ def get_projects_to_file():
 
 get_projects_to_file()
 
+
 def get_project(project_id):
     logger = configure_logger(log_path + "get_project_" + account_name + ".log")
 

@@ -59,6 +59,7 @@ def delete_group(group_id):
 
 
 def delete_all_groups(response):
+
     all_groups = get_groups(response)
 
     for group in all_groups:
@@ -67,4 +68,6 @@ def delete_all_groups(response):
     
     print('all groups in tenant ' + str(tenant) + 'deleted!')
 
-# delete_all_groups(response=None)
+url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
+response = requests.get(url, headers=auth_headers)
+delete_all_groups(response)

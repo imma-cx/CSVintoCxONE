@@ -20,7 +20,6 @@ def get_proj_queries(project_id):
     response = requests.get(url, headers=auth_headers)
     try:
         logger.info('Queries list retrieved')
-        print(response.json())
         return response.json()
     except ValueError as e:
         print(f"Error parsing response JSON: {e}")
@@ -33,10 +32,50 @@ def get_all_queries():
     response = requests.get(url, headers=auth_headers)
     try:
         logger.info('Queries list retrieved')
-        print(response.json())
         return response.json()
     except ValueError as e:
         print(f"Error parsing response JSON: {e}")
     return {}
 
-get_proj_queries("f61cfb11-78d1-4b4d-8c9d-20e3ecebadf4")
+
+def get_all_queries_to_json():
+    queries = get_all_queries()
+    queries_json = json.dumps(queries, indent=4)
+    if queries_json is None:
+        print("Error parsing response JSON")
+        return
+    else:
+        with open(file_path + "/all_queries.json", "w") as outfile:
+            outfile.write(queries_json)
+    print("File all_queries.json created in " + file_path + " folder")
+    return queries_json
+
+
+def get_project_queries_to_json(project_id):
+    queries = get_proj_queries(project_id)
+    queries_json = json.dumps(queries, indent=4)
+    if queries_json is None:
+        print("Error parsing response JSON")
+        return
+    else:
+        with open(file_path + "/project_" + project_id + "_queries.json", "w") as outfile:
+            outfile.write(queries_json)
+    print("File project_queries.json created in " + file_path + " folder")
+    return queries_json
+
+
+def main():
+
+    get_all_queries_to_json()
+
+    get_project_queries_to_json("79a84680-2cdc-45b3-b65a-55af30c9b80a")
+
+    get_proj_queries("79a84680-2cdc-45b3-b65a-55af30c9b80a")
+
+    pass
+
+
+if __name__ == '__main__':
+
+    main()
+    exit(0)

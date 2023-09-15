@@ -17,7 +17,7 @@ tenant = account.get('tenant')
 # projects_json var with all the tenant projects
 projects_json = get_projects()
 # projects_json_file var path to json file with the projects details to update
-projects_json_file = 'output/adidas/new_data/fromCSV_withGroupID_adidas_latest.json'
+projects_json_file = 'output/caixabank/fromCSV_withGroupID_production.json'
 relative_url = server_url + "/api/projects"
 
 
@@ -244,7 +244,7 @@ def update_projects(projects_json_file):
             else:
                 print("Request cancelled.")
 
-# update_projects(projects_json_file)
+update_projects(projects_json_file)
 
 
 def add_random_groups_to_projects(projects_json):

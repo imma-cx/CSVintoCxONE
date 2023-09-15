@@ -12,7 +12,6 @@ iam_url = account.get('iam_url')
 tenant = account.get('tenant')
 file_path = account.get('file_path')
 
-#group_data = 
 logger = configure_logger(log_path + 'post_groups_' + account_name + '.log')
 
 relative_url = iam_url + "/auth/admin/realms/" + tenant + "/groups"
@@ -33,6 +32,8 @@ def create_group(group_name):
             logger.error(f'Error: {response.status_code}')
     except requests.exceptions.RequestException as e:
         logger.exception(e)
+
+create_group("REV_ALMAAS")
 
 
 def create_group_set(group):
@@ -56,7 +57,8 @@ def create_group_set(group):
 
 # create_group_set(file_to_create_groups)
 
-def __create_sub_group_(sub_group_data, parent_group_id):
+
+def create_sub_group_(sub_group_data, parent_group_id):
         if parent_group_id:
             url = relative_url + "/" + parent_group_id + "/children"
         try:
@@ -72,6 +74,7 @@ def __create_sub_group_(sub_group_data, parent_group_id):
 logger = configure_logger(log_path + 'groups_subgroups_create.log')
 
 csv_file1 = "data/schroders/groups_mapping_1sast.csv"
+
 
 def create_groups_and_subgroups(csv_file):
     groups = {}

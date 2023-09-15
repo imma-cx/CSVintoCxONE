@@ -11,10 +11,12 @@ account = Config.get_account_config(account_name)
 server_url = account.get('server_url')
 file_path = account.get('file_path')
 
+scan_number = '100'
+
 
 def get_scan_management():
     logger = configure_logger(log_path + "get_scan_management_" + account_name + ".log")
-    url = server_url + '/api/scans/?limit=200&offset=0'
+    url = server_url + '/api/scans/?limit=' + scan_number + '&offset=0'
     response = requests.get(url, headers=auth_headers)
     if response.status_code == 200:
         logger.info("Successfully retrieved scan management.")
@@ -48,7 +50,7 @@ def get_scan_management_to_csv():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
 
-        file_name = file_path + "/scan_management_" + account_name + "_200.csv"
+        file_name = file_path + "/scan_management_" + account_name + "_" + scan_number + ".csv"
 
         # Create file if it doesn't exist
         if not os.path.exists(file_name):
@@ -112,8 +114,8 @@ def get_scan_management_to_csv():
 
 def main():
 
-    get_scan_management_to_csv()
-    # get_scan_management_to_json()
+    #get_scan_management_to_csv()
+    get_scan_management_to_json()
 
     print("\nDone!")
 

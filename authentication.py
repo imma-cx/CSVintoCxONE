@@ -3,7 +3,7 @@ from config import Config
 from logging_config import configure_logger, log_path
 
 # set the account to use
-account_name = "inga"
+account_name = "canary"
 # set to false if OAuth is to be used
 use_api_key = "true"
 
