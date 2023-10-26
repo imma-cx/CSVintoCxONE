@@ -337,6 +337,7 @@ def add_random_tags_to_projects(projects_json):
 
 # add_random_tags_to_projects(projects_json)
 
+
 # Delete random groups from projects
 def delete_random_groups(projects_json):
     logger = configure_logger(log_path + 'delete_random_groups_' + account_name + '.log')

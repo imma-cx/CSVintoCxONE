@@ -74,7 +74,6 @@ def get_username(user_id):
             firstname = user_data.get("firstName", "")
             lastname = user_data.get("lastName", "")
             username = user_data.get("username", "")
-
             if firstname and lastname:
                 full_name = f"{firstname} {lastname}"
             else:
@@ -85,10 +84,8 @@ def get_username(user_id):
         else:
             logger.error(f"Failed to retrieve user data. Status Code: {response.status_code}")
             return None
-
     except ValueError as e:
         logger.exception(f"Error parsing response JSON: {e}")
-
     return username
 
 

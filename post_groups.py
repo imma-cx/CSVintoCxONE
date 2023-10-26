@@ -33,7 +33,7 @@ def create_group(group_name):
     except requests.exceptions.RequestException as e:
         logger.exception(e)
 
-create_group("REV_ALMAAS")
+create_group("test_1")
 
 
 def create_group_set(group):

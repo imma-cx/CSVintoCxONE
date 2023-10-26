@@ -4,6 +4,8 @@ from get_projects import get_projects
 
 tenant_json = get_projects()
 file_json = json.load(open('output/adidas/new_data/fromCSV_withGroupID_adidas_latest.json'))
+
+
 def projects_compare(tenant_json, file_json):
     tenant_projects = tenant_json['projects']
     file_projects = file_json
